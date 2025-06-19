@@ -2,10 +2,11 @@ import foodWeAppLogo from "../assets/Logos/foodweAppLogo.png"
 
 function Header() {
   return (
-    <div className="flex justify-between items-center shadow-xl bg-white px-6 py-1">
+    <>
+    <div className="flex justify-between items-center shadow-xl bg-white md:px-6 px-2 py-1">
         <div className="group">
             <img 
-                className="w-20 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3" 
+                className="md:w-20 w-15 transition-transform duration-300 group-hover:scale-110 group-hover:rotate-3" 
                 src={foodWeAppLogo} 
                 alt="FoodWe App Logo" 
             />
@@ -14,7 +15,7 @@ function Header() {
         <div className="flex-1 max-w-md mx-8">
         </div>
         
-        <nav>
+        <nav className="md:block hidden">
             <ul className="flex gap-5 list-none">
                 <li>
                     <a href="#" className="nav-link relative text-xl font-semibold text-amber-400 px-4 py-1 rounded-lg transition-all duration-300 hover:text-amber-500 hover:-translate-y-1 hover:scale-105 hover:shadow-lg hover:shadow-amber-400/30 hover:bg-amber-50">
@@ -37,6 +38,28 @@ function Header() {
             </ul>
         </nav>
     </div>
+    <div className="w-full md:hidden block ">
+         <nav className="w-full text-center">
+            <ul className="flex flex-col justify-center  list-none">
+                <li className="border-b py-2 font-semibold text-amber-400 hover:bg-amber-50 border-t ">
+                    <a href="#" >
+                        Home
+                    </a>
+                </li>
+                <li className="border-b py-2 font-semibold text-amber-400 hover:bg-amber-50 ">
+                    <a href="#" >
+                      About
+                    </a>
+                </li>
+                <li className="border-b py-2 font-semibold text-amber-400 hover:bg-amber-50 ">
+                    <a href="#" >
+                              Contact
+                    </a>
+                </li>
+            </ul>
+        </nav>
+    </div>
+    </>
   )
 }
 
