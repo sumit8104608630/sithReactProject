@@ -1,12 +1,22 @@
 import React from 'react'
+import foodWeAppLogo from "../assets/Logos/foodweAppLogo.png"
 
 function Footer() {
   return (
     <div className='bg-black  text-white'>
      <div className=' flex gap-20 px-20 justify-center py-20'>
-      <div >
-        Logo
-      </div>
+   <div className="group flex items-center h-max">
+                      <div>
+                     <img 
+                         className="md:w-26 w-15 transition-transform duration-150 group-hover:scale-110 group-hover:rotate-3" 
+                         src={foodWeAppLogo} 
+                         alt="FoodWe App Logo" 
+                     />
+                     </div>
+                     <span className='text-2xl font-bold text-gray-300'>
+                      GrubGo
+                     </span>
+                 </div>
 
 <section>
   <h1 className="text-2xl font-medium text-gray-300">State</h1>
