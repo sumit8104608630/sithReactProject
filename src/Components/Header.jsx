@@ -6,8 +6,8 @@ function Header() {
     const [mobileMenu, setMobileMenu] = useState(false);
     
     return (
-        <>
-            <div className="flex justify-between items-center shadow-xl bg-white md:px-6 px-2 py-1">
+<div className="fixed w-full shadow-lg bg-white z-50">
+            <div className="flex justify-between  items-center  md:px-6 px-2 py-1">
                 <div className="group">
                     <img 
                         className="md:w-20 w-15 transition-transform duration-150 group-hover:scale-110 group-hover:rotate-3" 
@@ -83,7 +83,7 @@ function Header() {
                     </ul>
                 </nav>
             </div>
-        </>
+        </div>
     )
 }
 
