@@ -6,8 +6,11 @@ function Header() {
     const [mobileMenu, setMobileMenu] = useState(false);
     
     return (
-<div className="fixed w-full shadow-lg bg-white z-50">
-            <div className="flex justify-between  items-center  md:px-6 px-2 py-1">
+<div 
+  style={{boxShadow: "0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"}} 
+  className="fixed w-full bg-white z-50"
+>       
+     <div className="flex justify-between  items-center  md:px-6 px-2 py-1">
                 <div className="group">
                     <img 
                         className="md:w-20 w-15 transition-transform duration-150 group-hover:scale-110 group-hover:rotate-3" 
