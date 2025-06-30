@@ -20,7 +20,7 @@ function Footer() {
 
 <section>
   <h1 className="text-2xl font-medium text-gray-300">State</h1>
-  <ul className="text-gray-400 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5 mt-2">
+  <ul className="text-gray-400 grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 mt-2">
     <li>Andhra Pradesh</li>
     <li>Arunachal Pradesh</li>
     <li>Assam</li>
