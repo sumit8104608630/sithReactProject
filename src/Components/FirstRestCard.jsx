@@ -1,6 +1,6 @@
 import React from 'react'
 import {firstRowImageConstantUrl} from "../Util/constant.js"
-function FirstRestCard({id,imageId,action,}) {
+function FirstRestCard({imageId,action,}) {
   
   return (
     <div

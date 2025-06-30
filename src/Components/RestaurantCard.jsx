@@ -3,7 +3,7 @@ import { FaStar } from "react-icons/fa";
 import { IoTimeOutline } from "react-icons/io5";
 import { IoLocationOutline } from "react-icons/io5";
 import {restaurantImagesConstUrl} from "../Util/constant.js"
-function RestaurantCard({cloudinaryImageId,cuisines,id,avgRating,name,locality,areaName,sla,aggregatedDiscountInfoV3}) {
+function RestaurantCard({cloudinaryImageId,cuisines,id,avgRating,name,locality,sla,aggregatedDiscountInfoV3}) {
 
   return (
     <div  key={id} style={{boxShadow: "0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"}} 
