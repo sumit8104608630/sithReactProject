@@ -14,7 +14,10 @@ function RestaurantCard({cloudinaryImageId,cuisines,id,avgRating,name,locality,a
             className='object-cover w-full h-48'
              src={restaurantImagesConstUrl+cloudinaryImageId}></img>
             
-          <span className='absolute font-bold bottom-0 w-full py-2 pt-20 text-2xl px-2 bg-gradient-to-b from-[rgba(27,30,36,0)] to-[rgb(27,30,36)] to-[84.21%] text-white'>{aggregatedDiscountInfoV3?.header+""+aggregatedDiscountInfoV3?.subHeader}</span>
+          <span className='absolute font-bold bottom-0 w-full py-2 pt-20 text-2xl px-2 bg-gradient-to-b from-[rgba(27,30,36,0)] to-[rgb(27,30,36)] to-[84.21%] text-white'>{
+   aggregatedDiscountInfoV3?.header 
+  ? aggregatedDiscountInfoV3.header + " " + (aggregatedDiscountInfoV3?.subHeader || "")
+  : (aggregatedDiscountInfoV3?.subHeader || "")          }</span>
         </div>
 
         <div className='p-4'>
