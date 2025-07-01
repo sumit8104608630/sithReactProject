@@ -1,27 +1,9 @@
 import FirstRestCard from './FirstRestCard'
-import React,{useEffect, useRef, useState} from 'react'
-import {cardUrl} from "../Util/constant.js"
+import React,{ useRef} from 'react'
 import { FaCircleArrowLeft, FaCircleArrowRight } from 'react-icons/fa6'
-function FirstRestaurantRow() {
-  let [firstRowData,setFirstRowData]=useState([])
+function FirstRestaurantRow({firstRowData}) {
   const scroll=useRef(null)
-  const fetchCardDataFromUrl=async ()=>{
-      try {
-            const data = await fetch(cardUrl);
-            const json = await data.json();
-            setFirstRowData(json?.data?.cards[0].card.card?.gridElements?.infoWithStyle?.info)
-        }
-
-        catch (err) {
-            console.log("err", err);
-        }
-
-  }
-  useEffect(()=>{
-    fetchCardDataFromUrl()
-  },[])
-
-
+ 
   const handleScrollLeft=(direction)=>{
     if(direction==="left"){
       scroll.current.scrollBy({
@@ -52,7 +34,7 @@ function FirstRestaurantRow() {
           msOverflowStyle: 'none', 
         }}
        className='flex   justify-start  w-full overflow-x-auto overflow-y-hidden scrollbar-hide'>
-          {firstRowData.length===0?"Loading...":firstRowData.map((item)=><div key={item?.id}><FirstRestCard {...item}/></div>)}
+          {firstRowData?.length===0?"Loading...":firstRowData?.map((item)=><div key={item?.id}><FirstRestCard {...item}/></div>)}
       </div>
       </div>
     </div>

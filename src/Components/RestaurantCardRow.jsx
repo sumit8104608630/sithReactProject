@@ -1,26 +1,10 @@
-import React,{useEffect, useRef, useState} from 'react'
+import React,{ useRef} from 'react'
 import RestaurantCard from './RestaurantCard'
-import {cardUrl} from "../Util/constant.js"
 import { FaCircleArrowLeft,FaCircleArrowRight } from "react-icons/fa6";
 
-function RestaurantCardRow() {
-  let [restaurantRowData,setRestaurantRowData]=useState([])
+function RestaurantCardRow({restaurantRowData}) {
   const scroll=useRef(null)
-  const fetchCardDataFromUrl=async ()=>{
-    try {
-      const data = await fetch(cardUrl);
-      const json = await data.json();
-      setRestaurantRowData(json?.data?.cards[1].card.card?.gridElements?.infoWithStyle?.restaurants)
-    }
-    catch (err) {
-      console.log("err", err);
-    }
-  }
-  
-  useEffect(()=>{
-    fetchCardDataFromUrl()
-  },[])
-
+ 
     const handleScrollLeft=(direction)=>{
     if(direction==="left"){
       scroll.current.scrollBy({
@@ -52,7 +36,7 @@ function RestaurantCardRow() {
           msOverflowStyle: 'none', 
         }}
       >
-        {restaurantRowData.length===0?"Loading...":restaurantRowData.map((item)=><div key={item?.info?.id}><RestaurantCard {...item?.info} /></div>)}
+        {restaurantRowData?.length===0?"Loading...":restaurantRowData?.map((item)=><div key={item?.info?.id}><RestaurantCard {...item?.info} /></div>)}
       </div>
       </div>
     </div>
