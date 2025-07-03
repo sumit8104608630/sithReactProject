@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from "react"
 import foodWeAppLogo from "../assets/Logos/foodweAppLogo.png"
 import { IoMenu, IoSearch, IoLocationOutline, IoStarSharp } from "react-icons/io5";
 import {restaurantImagesConstUrl} from "../Util/constant.js"
+import { IoClose } from "react-icons/io5";
 
 function Header({filtration,setRestaurantRowData}) {
     const [mobileMenu, setMobileMenu] = useState(false);
@@ -163,7 +164,7 @@ function Header({filtration,setRestaurantRowData}) {
                     onClick={() => setMobileMenu((prev) => !prev)} 
                     className="md:hidden block"
                 >
-                    <IoMenu className="text-amber-400 text-xl" />
+                    {mobileMenu?<IoClose className="text-amber-400 text-xl"/>:<IoMenu className="text-amber-400 text-xl" />}
                 </button>
             </div>
             
