@@ -22,11 +22,11 @@ function RestaurantCardRow({restaurantRowData}) {
 
 
   return (
-    <div className='flex flex-col px-6 mt-10 '>
-      <h1 className='font-bold text-2xl'>Top restaurant chains in Mumbai</h1>
+    <div className='flex flex-col md:px-6 -x-2 mt-10 '>
+      <h1 className='font-bold md:text-2xl text-xl'>Top restaurant chains in Mumbai</h1>
 
       <div className='relative'>
-      <div className='absolute right-0 pr-5 top-0'><button onClick={()=>handleScrollLeft("left")} className='text-2xl text-gray-600 hover:text-gray-500 cursor-pointer'><FaCircleArrowLeft/></button> <button onClick={()=>handleScrollLeft("right")} className='text-2xl text-gray-600 hover:text-gray-500 cursor-pointer'><FaCircleArrowRight/></button></div>
+      <div className='absolute hidden md:block right-0 pr-5 top-0'><button onClick={()=>handleScrollLeft("left")} className='text-2xl text-gray-600 hover:text-gray-500 cursor-pointer'><FaCircleArrowLeft/></button> <button onClick={()=>handleScrollLeft("right")} className='text-2xl text-gray-600 hover:text-gray-500 cursor-pointer'><FaCircleArrowRight/></button></div>
       
       <div 
       ref={scroll}

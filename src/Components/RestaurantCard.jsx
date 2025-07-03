@@ -7,7 +7,7 @@ function RestaurantCard({cloudinaryImageId,cuisines,id,avgRating,name,locality,s
 
   return (
     <div  key={id} style={{boxShadow: "0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"}} 
- className='flex flex-col m-4 min-w-[280px] max-w-[280px] cursor-pointer shadow-lg object-cover overflow-hidden bg-white hover:border-2  border-amber-300 rounded-2xl '>
+ className='flex flex-col m-4 md:min-w-[280px] min-w-[250px] md:max-w-[280px] max-w-[250px] cursor-pointer shadow-lg object-cover overflow-hidden bg-white hover:border-2  border-amber-300 rounded-2xl '>
         <div className='relative'>
             
             <img
@@ -27,8 +27,8 @@ function RestaurantCard({cloudinaryImageId,cuisines,id,avgRating,name,locality,s
                 <span className='flex text-amber-700 items-center gap-1 font-semibold'><IoTimeOutline className='text-amber-700' />{sla?.slaString}</span>
             </div>
 <p className='text-gray-700 text-[16px] truncate w-full py-2'>{cuisines.join(", ")}</p>
-            <p className='flex gap-1 items-center py-2 truncate w-full font-medium'><IoLocationOutline className='text-amber-600' /><span className='truncate w-full'>{locality}</span></p>
-            <button className="w-full bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-white font-semibold py-3 px-4 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-amber-400/30 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">View Details</button>
+            <p className='flex gap-1 items-center py-1 truncate w-full font-medium'><IoLocationOutline className='text-amber-600' /><span className='truncate w-full'>{locality}</span></p>
+            <button className="w-full bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-white font-semibold md:py-3 py-1 px-4 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-amber-400/30 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">View Details</button>
         </div>
 
     </div>
