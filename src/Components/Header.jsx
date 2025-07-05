@@ -31,7 +31,7 @@ function Header({filtration,setRestaurantRowData}) {
                     return restaurant
                 }
             });
-            setSearchResults(filtered.slice(0, 5)); // Limit to 5 results
+            setSearchResults(filtered.slice(0, 5)); 
             setShowDropdown(true);
         } else {
             setSearchResults([]);
@@ -39,7 +39,6 @@ function Header({filtration,setRestaurantRowData}) {
         }
     }, [searchQuery, filtration]);
     
-    // Close dropdown when clicking outside
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (searchRef.current && !searchRef.current.contains(event.target)) {
@@ -55,7 +54,6 @@ function Header({filtration,setRestaurantRowData}) {
         e.preventDefault();
         if (searchQuery.trim()) {
             console.log("Searching for:", searchQuery);
-            // Add your search navigation logic here
             setShowDropdown(false);
         }
     };
@@ -66,8 +64,28 @@ function Header({filtration,setRestaurantRowData}) {
         setRestaurantRowData([restaurant])
         console.log("yes")
         setShowDropdown(false);
-        // Add navigation to restaurant page logic here
     };
+    const handleSearchClick=(searchQuery)=>{
+ const filtered = filtration.filter(restaurant => {
+                let restaurantName = restaurant?.info.name.split("").filter(item => {
+                    if(item !== " "){
+                        return item
+                    }
+                }).join("")
+                
+                let name = searchQuery.split("").filter(item => {
+                    if(item !== " "){
+                        return item
+                    }
+                }).join("")
+
+                if(restaurantName.toLowerCase().includes(name.toLowerCase())){
+                    return restaurant
+                }
+            });
+                    setRestaurantRowData(filtered)
+
+    }
     
     return (
         <div 
@@ -97,13 +115,13 @@ function Header({filtration,setRestaurantRowData}) {
                             />
                             <button
                                 type="submit"
+                                onClick={()=>handleSearchClick(searchQuery)}
                                 className="text-amber-400 cursor-pointer hover:text-amber-500 transition-colors duration-200"
                             >
                                 <IoSearch className="text-xl" />
                             </button>
                         </div>
                         
-                        {/* Desktop Dropdown */}
                         {showDropdown && searchResults.length > 0 && (
                             <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-80 overflow-y-auto">
                                 {searchResults.map((restaurant) => (
@@ -123,8 +141,6 @@ function Header({filtration,setRestaurantRowData}) {
                                             <div className="font-semibold text-gray-800">{restaurant.info.name}</div>
                                             <div className="text-sm text-gray-600 flex items-center">
                                                 <span className="mr-2">{restaurant.info.cuisines?.join(", ") || "Various cuisines"}</span>
-                                                <IoLocationOutline className="mr-1" />
-                                                <span>{restaurant.info.locality}</span>
                                             </div>
                                         </div>
                                         <div className="flex items-center text-amber-500">
@@ -188,7 +204,6 @@ function Header({filtration,setRestaurantRowData}) {
                         </button>
                     </div>
                     
-                    {/* Mobile Dropdown */}
                     {showDropdown && searchResults.length > 0 && (
                         <div className="absolute top-full left-0 right-0 mt-1 bg-white border border-gray-200 rounded-lg shadow-lg z-50 max-h-64 overflow-y-auto">
                             {searchResults.map((restaurant) => (
@@ -208,8 +223,6 @@ function Header({filtration,setRestaurantRowData}) {
                                         <div className="font-semibold text-gray-800 text-sm">{restaurant.info.name}</div>
                                         <div className="text-xs text-gray-600 flex items-center">
                                             <span className="mr-2">{restaurant.info.cuisines?.slice(0, 2).join(", ") || "Various cuisines"}</span>
-                                            <IoLocationOutline className="mr-1" />
-                                            <span>{restaurant.info.locality}</span>
                                         </div>
                                     </div>
                                     <div className="flex items-center text-amber-500 text-sm">

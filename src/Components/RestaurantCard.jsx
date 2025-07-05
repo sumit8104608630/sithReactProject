@@ -28,7 +28,6 @@ function RestaurantCard({cloudinaryImageId,cuisines,id,avgRating,name,locality,s
             </div>
 <p className='text-gray-700 text-[16px] truncate w-full py-2'>{cuisines.join(", ")}</p>
             <p className='flex gap-1 items-center py-1 truncate w-full font-medium'><IoLocationOutline className='text-amber-600' /><span className='truncate w-full'>{locality}</span></p>
-            <button className="w-full bg-gradient-to-r from-amber-400 to-amber-500 hover:from-amber-500 hover:to-amber-600 text-white font-semibold md:py-3 py-1 px-4 rounded-xl transition-all duration-300 hover:shadow-lg hover:shadow-amber-400/30 transform hover:-translate-y-0.5 active:translate-y-0 cursor-pointer">View Details</button>
         </div>
 
     </div>

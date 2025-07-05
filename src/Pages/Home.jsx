@@ -8,7 +8,7 @@ function Home({firstRowData,restaurantRowData}) {
 
   return (
   <div className='pt-32'>
-    <div className='hidden justify-center  px-15 md:flex  overflow-hidden '>
+    <div className='hidden justify-center mx-auto px-10 md:flex  overflow-hidden '>
       <img
         className='rounded-2xl border-amber-300 border-4  bg-white h-[400px] w-full object-cover'
       src={BgImage}></img>
