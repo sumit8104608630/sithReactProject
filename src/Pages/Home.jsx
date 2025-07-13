@@ -3,7 +3,7 @@ import RestaurantCard from '../Components/RestaurantCard'
 import BgImage from "../assets/images/backgroundImage.jpg"
 import RestaurantCardRow from '../Components/RestaurantCardRow'
 import FirstRestaurantRow from '../Components/FirstRestaurantRow'
-function Home({firstRowData,restaurantRowData}) {
+function Home({firstRowData,restaurantRowData,errorMessage}) {
 
 
   return (
@@ -15,8 +15,8 @@ function Home({firstRowData,restaurantRowData}) {
     </div>
 
     <div className='flex gap-5 md:px-20 px-5 flex-col justify-center'>
-        <FirstRestaurantRow firstRowData={firstRowData}/>
-        <RestaurantCardRow restaurantRowData={restaurantRowData} />
+        <FirstRestaurantRow errorMessage={errorMessage} firstRowData={firstRowData}/>
+        <RestaurantCardRow errorMessage={errorMessage} restaurantRowData={restaurantRowData} />
     </div>
     </div>
     )

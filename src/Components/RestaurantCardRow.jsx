@@ -1,11 +1,12 @@
-import React,{ useRef} from 'react'
+import { useState } from 'react'
 import RestaurantCard from './RestaurantCard'
-import { FaCircleArrowLeft,FaCircleArrowRight } from "react-icons/fa6";
+import RestaurantCardSkeleton from './RestaurantCardSkeleton'
 
-function RestaurantCardRow({restaurantRowData}) {
-  const scroll=useRef(null)
- 
+function RestaurantCardRow({restaurantRowData,errorMessage}) {
   
+  const [isLoading,setIsLoading]=useState(true)
+
+
 
   return (
     <div className='flex flex-col justify-center  md:px-6 -x-2 mt-10 '>
@@ -20,7 +21,7 @@ function RestaurantCardRow({restaurantRowData}) {
           msOverflowStyle: 'none', 
         }}
       >
-        {restaurantRowData?.length===0?"Loading...":restaurantRowData?.map((item)=><div className='' key={item?.info?.id}><RestaurantCard {...item?.info} /></div>)}
+        {restaurantRowData?.length===0 && errorMessage.length===0?new Array(20).fill("").map((item,i)=><div className='' key={i}><RestaurantCardSkeleton/></div>):restaurantRowData?.map((item)=><div className='' key={item?.info?.id}><RestaurantCard {...item?.info} /></div>)}
       </div>
       </div>
     </div>
