@@ -1,25 +1,98 @@
-import React,{useEffect, useState} from 'react'
+import React, { useEffect, useState } from 'react'
 import RestaurantCard from '../Components/RestaurantCard'
 import BgImage from "../assets/images/backgroundImage.jpg"
 import RestaurantCardRow from '../Components/RestaurantCardRow'
 import FirstRestaurantRow from '../Components/FirstRestaurantRow'
-function Home({firstRowData,restaurantRowData,errorMessage}) {
+import SearchBar from '../Components/SearchBar'
+import { IoFilter, IoStarSharp, IoTimeOutline, IoLocationOutline } from "react-icons/io5"
 
+function Home({ firstRowData, restaurantRowData, errorMessage, filtration, setRestaurantRowData }) {
+  const [activeFilter, setActiveFilter] = useState('all');
+  const [showFilters, setShowFilters] = useState(false);
+
+  // Filter functions - UI only
+  const handleFilterClick = (filterType) => {
+    setActiveFilter(filterType);
+  };
+
+  const filterButtons = [
+    { id: 'all', label: 'All' },
+    { id: 'rating', label: 'Top Rated' },
+    { id: 'distance', label: 'Near Me' },
+    { id: 'offers', label: 'Offers' },
+    { id: 'pure-veg', label: 'Pure Veg' },
+  ];
+
+  function filterDataAccordingFilterButton(filterId){
+    let filterArray=[...filtration]
+    console.log(restaurantRowData)
+    switch(filterId){
+      case "all":
+        filterArray=filtration
+        break
+      case "rating":
+         filterArray=filtration.filter((restaurant)=>{
+          let rating=Number(restaurant.info.avgRating)
+          return rating>=4.5 
+        })
+        break
+      case "pure-veg":
+         filterArray=filtration.filter((restaurant)=>{
+          let veg=Number(restaurant.info?.veg)
+          return veg
+        })
+        break
+      case "offers":
+            filterArray=filtration.filter((restaurant)=>{
+          let rating=Number(restaurant.info?.sla.lastMileTravel)
+          return rating<1.5
+        })
+        break
+        
+    }
+    setRestaurantRowData(filterArray)
+  }
+  
+  useEffect(()=>{
+filterDataAccordingFilterButton(activeFilter)
+  },[activeFilter])
+  
 
   return (
-  <div className='pt-32'>
-    <div className='hidden justify-center mx-auto px-10 md:flex  overflow-hidden '>
-      <img
-        className='rounded-2xl border-amber-300 border-4  bg-white h-[400px] w-full object-cover'
-      src={BgImage}></img>
-    </div>
+    <div className='pt-32'>
+      {/* Background Image */}
+      <div className='hidden justify-center mx-auto px-10 md:flex overflow-hidden'>
+        <img
+          className='rounded-2xl border-amber-300 border-4 bg-white h-[400px] w-full object-cover'
+          src={BgImage}
+          alt="Background"
+        />
+      </div>
 
-    <div className='flex gap-5 md:px-20 px-5 flex-col justify-center'>
-        <FirstRestaurantRow errorMessage={errorMessage} firstRowData={firstRowData}/>
+      {/* Search Bar and Filters Section */}
+      <div className=' justify-between px-5 md:px-20 py-8 flex'>
+        {/* Search Bar */}
+        <div className='mb-6'>
+          <SearchBar 
+            filtration={filtration}
+            setRestaurantRowData={setRestaurantRowData}
+            isMobile={false}
+          />
+        </div>   
+        <div className='flex gap-10'>{filterButtons.map((item)=><button
+        onClick={()=>handleFilterClick(item.id)}
+         className={`px-5 py-2 h-max cursor-pointer border-2 outline-2 outline-amber-400 ${activeFilter===item.id?"bg-amber-400 border-white text-white":"outline-amber-400 border-none text-amber-400"}  rounded-lg 
+        font-semibold `} key={item.id}>{item.label}</button>
+        ) } </div> 
+      </div>
+
+      {/* Restaurant Sections */}
+      <div className='flex gap-5 md:px-20 px-5 flex-col justify-center'>
+        <FirstRestaurantRow errorMessage={errorMessage} firstRowData={firstRowData} />
         <RestaurantCardRow errorMessage={errorMessage} restaurantRowData={restaurantRowData} />
+      </div>
     </div>
-    </div>
-    )
+  )
 }
 
 export default Home

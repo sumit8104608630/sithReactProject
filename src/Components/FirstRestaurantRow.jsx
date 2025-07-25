@@ -21,7 +21,7 @@ const [isLoading,setIsLoading]=useState(false)
   }
 
   useEffect(()=>{
-    if(errorMessage.length===0 && firstRowData.length===0){
+    if(errorMessage?.length===0 && firstRowData?.length===0){
   setIsLoading(true)
 }
 else{

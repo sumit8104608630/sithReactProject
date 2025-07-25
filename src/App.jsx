@@ -45,6 +45,7 @@ function App() {
 
         }
           const json = await data.json();
+          console.log(json,"ss")
           setFirstRowData(json?.data?.cards[0].card.card?.gridElements?.infoWithStyle?.info)
           setRestaurantRowData(json?.data?.cards[1].card.card?.gridElements?.infoWithStyle?.restaurants)
           setFiltration(json?.data?.cards[1].card.card?.gridElements?.infoWithStyle?.restaurants)
@@ -62,11 +63,14 @@ function App() {
       }
   return (
     <>
-    <Header filtration={filtration}  setRestaurantRowData={setRestaurantRowData} />
     {<>
-    <Home  firstRowData={firstRowData} errorMessage={errorMessage} restaurantRowData={restaurantRowData} />
-    <div className='hidden md:block'>
-    <Footer/>
+<Home 
+  firstRowData={firstRowData}
+  restaurantRowData={restaurantRowData}
+  errorMessage={errorMessage}
+  filtration={filtration}          // Add this
+  setRestaurantRowData={setRestaurantRowData}  // Add this
+/>    <div className='hidden md:block'>
     </div>
     </>}
     </>

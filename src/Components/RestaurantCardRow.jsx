@@ -15,13 +15,13 @@ function RestaurantCardRow({restaurantRowData,errorMessage}) {
       <div className='relative w-full flex '>
       
       <div 
-        className={`flex flex-wrap w-full  ${restaurantRowData?.length<4?"justify-start":"justify-center"}`}
+        className={`flex flex-wrap w-full justify-center }`}
         style={{
           scrollbarWidth: 'none', 
           msOverflowStyle: 'none', 
         }}
       >
-        {restaurantRowData?.length===0 && errorMessage.length===0?new Array(20).fill("").map((item,i)=><div className='' key={i}><RestaurantCardSkeleton/></div>):restaurantRowData?.map((item)=><div className='' key={item?.info?.id}><RestaurantCard {...item?.info} /></div>)}
+        {restaurantRowData?.length===0 && errorMessage.length===0?new Array(20).fill("").map((_,i)=><div className='' key={i}><RestaurantCardSkeleton/></div>):restaurantRowData?.map((item)=><div className='' key={item?.info?.id}><RestaurantCard {...item?.info} /></div>)}
       </div>
       </div>
     </div>
