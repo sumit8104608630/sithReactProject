@@ -5,6 +5,7 @@ import About from "../Pages/About.jsx"
 import Contact from "../Pages/Contact.jsx"
 import App from "../App.jsx"
 import LayOut from "../Pages/LayOut.jsx"
+import MenuPage from "../Pages/MenuPage.jsx"
 const appRouter=createBrowserRouter([
     {
      path:"/",
@@ -25,6 +26,10 @@ const appRouter=createBrowserRouter([
         {
             path:"/contact",
             Component : Contact 
+        },
+        {
+            path:"/menu/:title",
+            Component : MenuPage
         }
 
      ]

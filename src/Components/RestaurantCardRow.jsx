@@ -1,12 +1,11 @@
 import { useState } from 'react'
 import RestaurantCard from './RestaurantCard'
 import RestaurantCardSkeleton from './RestaurantCardSkeleton'
-
 function RestaurantCardRow({restaurantRowData,errorMessage}) {
   
   const [isLoading,setIsLoading]=useState(true)
 
-
+console.log(restaurantRowData)
 
   return (
     <div className='flex flex-col justify-center  md:px-6 -x-2 mt-10 '>

@@ -3,9 +3,14 @@ import { FaStar } from "react-icons/fa";
 import { IoTimeOutline } from "react-icons/io5";
 import { IoLocationOutline } from "react-icons/io5";
 import {restaurantImagesConstUrl} from "../Util/constant.js"
-function RestaurantCard({cloudinaryImageId,cuisines,id,avgRating,name,locality,sla,aggregatedDiscountInfoV3}) {
+import {give_dash,makeSimpleWord} from "../Util/hepler"
 
+import { Link } from 'react-router';
+function RestaurantCard({cloudinaryImageId,cuisines,id,avgRating,name,locality,sla,aggregatedDiscountInfoV3,areaName}) {
+  
   return (
+    <>
+    <Link to={`/menu/${makeSimpleWord(name)}-${makeSimpleWord(locality)}-${give_dash(areaName)}-rest${id}`}>
     <div  key={id} style={{boxShadow: "0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"}} 
  className='flex flex-col m-4 md:min-w-[280px] min-w-[250px] md:max-w-[280px] max-w-[250px] cursor-pointer shadow-lg object-cover overflow-hidden bg-white hover:border-2  border-amber-300 rounded-2xl '>
         <div className='relative'>
@@ -31,6 +36,8 @@ function RestaurantCard({cloudinaryImageId,cuisines,id,avgRating,name,locality,s
         </div>
 
     </div>
+    </Link>
+    </>
   )
 }
 
