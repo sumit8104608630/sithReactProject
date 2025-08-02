@@ -6,7 +6,7 @@ import FirstRestaurantRow from '../Components/FirstRestaurantRow'
 import SearchBar from '../Components/SearchBar'
 import { IoFilter, IoStarSharp, IoTimeOutline, IoLocationOutline } from "react-icons/io5"
 
-function Home({ firstRowData, restaurantRowData, errorMessage, filtration, setRestaurantRowData }) {
+function Home({ firstRowData, restaurantRowData, errorMessage, filtration,isLoading, setRestaurantRowData }) {
   const [activeFilter, setActiveFilter] = useState('all');
   const [showFilters, setShowFilters] = useState(false);
   // Filter functions - UI only
@@ -99,7 +99,7 @@ filterDataAccordingFilterButton(activeFilter)
         ) } </div> 
       </div>
 
-        <RestaurantCardRow errorMessage={errorMessage}  restaurantRowData={restaurantRowData} />
+        <RestaurantCardRow errorMessage={errorMessage} isLoading={isLoading} restaurantRowData={restaurantRowData} />
       </div>
     </div>
   )

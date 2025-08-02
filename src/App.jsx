@@ -10,6 +10,7 @@ import ErrorMessage from './Components/ErrorMessage.jsx'
 function App() {
       let [filtration,setFiltration]=useState([])
       let [firstRowData,setFirstRowData]=useState([])
+      let [isLoading,setIsLoading]=useState(true)
       let [restaurantRowData,setRestaurantRowData]=useState([]);
       let [errorMessage,setErrorMessage]=useState("");
 
@@ -49,9 +50,13 @@ function App() {
           setFirstRowData(json?.data?.cards[0].card.card?.gridElements?.infoWithStyle?.info)
           setRestaurantRowData(json?.data?.cards[1].card.card?.gridElements?.infoWithStyle?.restaurants)
           setFiltration(json?.data?.cards[1].card.card?.gridElements?.infoWithStyle?.restaurants)
+          setIsLoading(false)
         }
         catch (err) {
           setErrorMessage(err.message);
+        }
+        finally{
+          setIsLoading(false)
         }
       }
       useEffect(()=>{
@@ -65,6 +70,7 @@ function App() {
     <>
     {<>
 <Home 
+isLoading={isLoading}
   firstRowData={firstRowData}
   restaurantRowData={restaurantRowData}
   errorMessage={errorMessage}

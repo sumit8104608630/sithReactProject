@@ -2,11 +2,21 @@ import { useState } from 'react'
 import RestaurantCard from './RestaurantCard'
 import { Search, Utensils, Coffee } from 'lucide-react';
 import RestaurantCardSkeleton from './RestaurantCardSkeleton'
-function RestaurantCardRow({restaurantRowData,errorMessage}) {
+function RestaurantCardRow({restaurantRowData,errorMessage ,isLoading}) {
   
-  const [isLoading,setIsLoading]=useState(true)
+  if(isLoading){
+    return(
+         <div 
+        className={`flex flex-wrap w-full justify-center }`}
+        style={{
+          scrollbarWidth: 'none', 
+          msOverflowStyle: 'none', 
+        }}
+      >{new Array(20).fill("").map((_,i)=><div className='' key={i}><RestaurantCardSkeleton/></div>)}</div>
+    )
+  }
 
-  if(restaurantRowData.length===0){
+  if(restaurantRowData.length===0 ){
     return (
     <div className="flex flex-col items-center justify-center py-16 px-8 text-center">
       {/* Icon container with gradient background */}
@@ -50,7 +60,7 @@ function RestaurantCardRow({restaurantRowData,errorMessage}) {
           msOverflowStyle: 'none', 
         }}
       >
-        {restaurantRowData?.length===0 && errorMessage.length===0?new Array(20).fill("").map((_,i)=><div className='' key={i}><RestaurantCardSkeleton/></div>):restaurantRowData?.map((item)=><div className='' key={item?.info?.id}><RestaurantCard {...item?.info} /></div>)}
+        {restaurantRowData?.map((item)=><div className='' key={item?.info?.id}><RestaurantCard {...item?.info} /></div>)}
       </div>
       </div>
     </div>
