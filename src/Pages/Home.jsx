@@ -99,7 +99,7 @@ filterDataAccordingFilterButton(activeFilter)
         ) } </div> 
       </div>
 
-        <RestaurantCardRow errorMessage={errorMessage} restaurantRowData={restaurantRowData} />
+        <RestaurantCardRow errorMessage={errorMessage}  restaurantRowData={restaurantRowData} />
       </div>
     </div>
   )
