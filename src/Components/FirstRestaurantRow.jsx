@@ -31,7 +31,7 @@ else{
 
 
   return (
-    <>
+    <div className='md:px-20 px-5'>
     {isLoading?<MenuLoader/>:<div className='flex flex-col md:px-6 w-full mt-5'>
     <h1 className='font-bold md:text-2xl text-xl '>SUMIT, what's on your mind?</h1>
        <div className='relative '>
@@ -47,7 +47,7 @@ else{
       </div>
       </div>
     </div>}
-    </>
+    </div>
   )
 }
 

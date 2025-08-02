@@ -8,7 +8,9 @@ function RestaurantCardRow({restaurantRowData,errorMessage}) {
 console.log(restaurantRowData)
 
   return (
-    <div className='flex flex-col justify-center  md:px-6 -x-2 mt-10 '>
+    <div 
+
+     className='flex flex-col justify-center   md:px-26 px-6 mt-10 '>
       <h1 className='font-bold md:text-2xl text-xl'>Top restaurant chains in Mumbai</h1>
 
       <div className='relative w-full flex '>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import RestaurantCard from '../Components/RestaurantCard'
 import BgImage from "../assets/images/backgroundImage.jpg"
 import RestaurantCardRow from '../Components/RestaurantCardRow'
@@ -9,12 +9,11 @@ import { IoFilter, IoStarSharp, IoTimeOutline, IoLocationOutline } from "react-i
 function Home({ firstRowData, restaurantRowData, errorMessage, filtration, setRestaurantRowData }) {
   const [activeFilter, setActiveFilter] = useState('all');
   const [showFilters, setShowFilters] = useState(false);
-
   // Filter functions - UI only
   const handleFilterClick = (filterType) => {
     setActiveFilter(filterType);
   };
-
+  const [newHeader,setNewHeader]=useState(false)
   const filterButtons = [
     { id: 'all', label: 'All' },
     { id: 'rating', label: 'Top Rated' },
@@ -22,7 +21,14 @@ function Home({ firstRowData, restaurantRowData, errorMessage, filtration, setRe
     { id: 'offers', label: 'Offers' },
     { id: 'pure-veg', label: 'Pure Veg' },
   ];
-
+  useEffect(()=>{
+    const handleShadowEffect=()=>{
+      const scrollTop=window.scrollY;
+      const threshold=800;
+      setNewHeader(scrollTop>threshold);
+    }
+    window.addEventListener("scroll",handleShadowEffect)
+  })
   function filterDataAccordingFilterButton(filterId){
     let filterArray=[...filtration]
     console.log(restaurantRowData)
@@ -69,8 +75,15 @@ filterDataAccordingFilterButton(activeFilter)
         />
       </div>
 
-      {/* Search Bar and Filters Section */}
-      <div className=' justify-between px-5 md:px-20 py-8 flex'>
+   
+      {/* Restaurant Sections */}
+      <div className='flex gap-5  flex-col justify-center'>
+        <FirstRestaurantRow errorMessage={errorMessage} firstRowData={firstRowData} />
+           {/* Search Bar and Filters Section */}
+      <div 
+                  style={newHeader?{boxShadow: "0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"}:{}} 
+
+       className=' justify-between shadow-2xl  sticky top-0 z-100 bg-white w-full px-5 md:px-20 pt-8  flex'>
         {/* Search Bar */}
         <div className='mb-6'>
           <SearchBar 
@@ -86,9 +99,6 @@ filterDataAccordingFilterButton(activeFilter)
         ) } </div> 
       </div>
 
-      {/* Restaurant Sections */}
-      <div className='flex gap-5 md:px-20 px-5 flex-col justify-center'>
-        <FirstRestaurantRow errorMessage={errorMessage} firstRowData={firstRowData} />
         <RestaurantCardRow errorMessage={errorMessage} restaurantRowData={restaurantRowData} />
       </div>
     </div>
