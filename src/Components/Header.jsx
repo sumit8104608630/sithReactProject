@@ -14,11 +14,12 @@ function Header({ filtration, setRestaurantRowData }) {
         >       
             <div className="flex justify-between items-center md:px-6 px-2 py-1">
                 <div className="group">
+                    <Link to={"/"}>
                     <img 
-                        className="md:w-20 w-15 transition-transform duration-150 group-hover:scale-110 group-hover:rotate-3" 
+                        className="md:w-20 w-15 cursor-pointer transition-transform duration-150 group-hover:scale-110 group-hover:rotate-3" 
                         src={foodWeAppLogo} 
                         alt="FoodWe App Logo" 
-                    />
+                    /></Link>
                 </div>
                 
           
