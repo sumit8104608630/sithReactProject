@@ -9,6 +9,7 @@ import Offers from '../Components/Offers';
 import { FaCircleArrowLeft, FaCircleArrowRight } from 'react-icons/fa6';
 import MenuItems from '../Components/MenuItems';
 import ShimmerMenuEffect from '../Components/ShimmerMenuEffect';
+import NestedMenu from '../Components/NestedMenu';
 
 function MenuPage() {
   const scroll = useRef(null)
@@ -99,7 +100,7 @@ const extractMenuData = async () => {
       })
     }
   }
-
+console.log(nestedMenuItem)
   const renderCuisines = () => {
     return menuInfo?.cuisines?.map((cuisine, i) => (
       <span key={i} className="bg-amber-500 text-white px-3 py-0.5 rounded-full text-sm font-medium">
@@ -251,6 +252,7 @@ const extractMenuData = async () => {
       {/* now the menu section */}
       <div className='w-1/2 mb-10'>
         {menuItem.map((item)=><div key={item?.card?.card?.categoryId}><MenuItems  id={item?.card?.card?.categoryId} subItems={item?.card?.card?.itemCards} title={item?.card?.card?.title} len={item?.card?.card?.itemCards.length} /></div>)}
+        {nestedMenuItem.map((item)=><div key={item?.card?.card?.categoryId}><NestedMenu {...item?.card?.card} /></div>)}
       </div>
     </div>
   )

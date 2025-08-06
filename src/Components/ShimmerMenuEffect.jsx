@@ -67,7 +67,7 @@ const ShimmerMenuEffect = () => {
       
       {/* Menu Categories */}
       <div className='my-5'>
-      {new Array(5).fill("").map(item=><div className='w-full border-amber-500 py-2 px-1 border-t-1'>
+      {new Array(5).fill("").map((item,i)=><div key={i} className='w-full border-amber-500 py-2 px-1 border-t-1'>
          <div className='w-full flex justify-between'>
                  <h1 className='text-xl font-semibold shimmer h-10 w-100 rounded text-amber-500 '></h1>
                  <button  className='cursor-pointer shimmer h-10 w-10 rounded  px-1 py-1'>

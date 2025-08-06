@@ -1,5 +1,4 @@
 import React from 'react';
-import { Plus, ChevronDown } from 'lucide-react';
 
 const SubMenuItems = ({ 
   name, 
@@ -8,65 +7,83 @@ const SubMenuItems = ({
   offerPrice, 
   imageId, 
   id, 
-  isVeg 
+  isVeg,
+  onAddToCart
 }) => {
-  const symbol = (veg = 0) => {
-    return (
-      <div className="flex items-center">
-        <div className={`w-4 h-4 sm:w-5 sm:h-5 border-2 ${veg ? "border-green-600" : "border-red-600"} rounded-sm flex items-center justify-center`}>
-          <div className={`w-2 h-2 sm:w-2.5 sm:h-2.5 ${veg ? "bg-green-600" : "bg-red-600"} rounded-full`}></div>
-        </div>
-      </div>
-    );
+  const handleAddClick = () => {
+    if (onAddToCart) {
+      onAddToCart({ id, name, price, offerPrice });
+    }
   };
 
   return (
-    <div key={id} className="flex justify-between w-full gap-3 sm:gap-4 p-3 sm:p-4 bg-white rounded-lg shadow-sm border-b border-gray-100 last:border-b-0">
+    <div className="flex justify-between w-full gap-4 p-4 bg-white rounded-lg shadow-sm border-b border-gray-100 last:border-b-0">
+      {/* Left Section - Item Details */}
       <div className="flex-1 min-w-0">
-        <div className="flex flex-col">
-          <span className="mb-2">
-            {symbol(isVeg)}
-          </span>
-          
-          <h1 className="font-bold mb-1 text-base sm:text-lg md:text-xl text-gray-900 leading-tight">
-            {name}
-          </h1>
-          
-          <div className="font-medium mb-2 flex gap-2 text-gray-500 items-center">
-            {!isNaN(offerPrice) && !isNaN(price) && (
-              <del className="text-sm sm:text-base text-gray-400">₹{offerPrice}</del>
-            )}
-            <span className="text-black font-bold text-sm sm:text-base">
-              ₹{isNaN(price) ? offerPrice : price}
-            </span>
+        {/* Veg/Non-Veg Indicator */}
+        <div className="flex items-center mb-2">
+          <div className={`w-4 h-4 border-2 ${isVeg ? "border-green-600" : "border-red-600"} rounded-sm flex items-center justify-center`}>
+            <div className={`w-2 h-2 ${isVeg ? "bg-green-600" : "bg-red-600"} rounded-full`}></div>
           </div>
         </div>
         
-        <p className="text-xs sm:text-sm md:text-base text-gray-600 leading-relaxed line-clamp-2 sm:line-clamp-3">
+        {/* Item Name */}
+        <h3 className="font-bold text-start mb-1 text-lg text-gray-900 leading-tight">
+          {name}
+        </h3>
+        
+        {/* Price Display */}
+        <div className="mb-2 flex gap-2 items-center">
+          {!isNaN(offerPrice) && !isNaN(price) && (
+            <del className="text-sm text-gray-400">₹{offerPrice}</del>
+          )}
+          <span className="text-black font-bold text-sm">
+            ₹{isNaN(price) ? offerPrice : price}
+          </span>
+        </div>
+        
+        {/* Description */}
+        <p className="text-sm text-start text-gray-600 leading-relaxed line-clamp-2">
           {description}
         </p>
       </div>
       
-      <div className="flex-shrink-0 w-24 sm:w-32 md:w-36">
-        <div className="flex relative justify-center flex-col items-center">
-          <img
-            className="w-20 h-20 sm:w-28 sm:h-28 md:w-32 md:h-32 z-10 rounded-lg object-cover hover:scale-105 transition-transform duration-300"
-            src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/${imageId}`}
-            alt={name}
-            loading="lazy"
-          />
-          
-          <div className="absolute w-full z-20 -bottom-2 sm:-bottom-3">
-            <div className="flex w-full justify-center">
-              <button className="px-3 py-1 sm:px-4 sm:py-1.5 outline-2 outline-green-600 md:px-5 md:py-1 cursor-pointer border border-white z-20 bg-green-600 hover:bg-green-700 text-white font-semibold text-xs sm:text-sm rounded shadow-lg transition-colors duration-200">
-                Add
-              </button>
+      {/* Right Section - Image & Add Button */}
+      <div className="flex-shrink-0 w-24 flex flex-col items-center justify-center">
+        {/* Image with Add Button or Just Add Button */}
+        {imageId ? (
+          <div className="flex relative justify-center flex-col items-center">
+            <img
+              className="w-20 h-20 rounded-lg object-cover hover:scale-105 transition-transform duration-300"
+              src={`https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_300,h_300,c_fit/${imageId}`}
+              alt={name}
+              loading="lazy"
+            />
+            <div className="absolute w-full -bottom-2">
+              <div className="flex justify-center">
+                <div 
+                  className="px-3 py-1 cursor-pointer border border-white bg-green-600 hover:bg-green-700 text-white font-semibold text-xs rounded shadow-lg transition-colors duration-200"
+                  onClick={handleAddClick}
+                >
+                  Add
+                </div>
+              </div>
             </div>
           </div>
-        </div>
+        ) : (
+          <div className="flex justify-center">
+            <div 
+              className="px-3 py-1 cursor-pointer border border-white bg-green-600 hover:bg-green-700 text-white font-semibold text-xs rounded shadow-lg transition-colors duration-200"
+              onClick={handleAddClick}
+            >
+              Add
+            </div>
+          </div>
+        )}
         
-        <div className="mt-2 sm:mt-3 text-center">
-          <span className="text-xs sm:text-sm font-medium text-gray-500">
+        {/* Customisable Label */}
+        <div className="mt-2 text-center">
+          <span className="text-xs font-medium text-gray-500">
             Customisable
           </span>
         </div>
