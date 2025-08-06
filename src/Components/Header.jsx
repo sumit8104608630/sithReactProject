@@ -25,13 +25,14 @@ function Header({ filtration, setRestaurantRowData }) {
             className="fixed w-full bg-white z-50"
         >       
             <div className="flex justify-between items-center md:px-6 px-2 py-1">
-                <div className="group">
-                    <NavLink to={"/"}>
+                <div className="group ">
+                    <NavLink className="flex items-center" to={"/"}>
                         <img 
-                            className="md:w-20 w-15 cursor-pointer transition-transform duration-150 group-hover:scale-110 group-hover:rotate-3" 
+                            className="md:w-20 w-15  cursor-pointer transition-transform duration-150 group-hover:scale-110 group-hover:rotate-3" 
                             src={foodWeAppLogo} 
                             alt="FoodWe App Logo" 
                         />
+                        <span className="text-2xl font-bold text-amber-500 font-mono">Food Hub</span>
                     </NavLink>
                 </div>
                 
