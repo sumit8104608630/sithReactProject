@@ -2,10 +2,22 @@ import { useState } from "react";
 import foodWeAppLogo from "../assets/Logos/foodweAppLogo.png";
 import { IoMenu } from "react-icons/io5";
 import { IoClose } from "react-icons/io5";
-import { Link } from "react-router";
+import { NavLink } from "react-router";
+import { Activity } from "lucide-react";
 
 function Header({ filtration, setRestaurantRowData }) {
     const [mobileMenu, setMobileMenu] = useState(false);
+    
+    const getNavLinkClass = ({ isActive }) => 
+        `nav-link relative text-xl font-semibold px-4 py-1 rounded-lg transition-all duration-150 hover:-translate-y-1 hover:scale-105 hover:shadow-lg hover:shadow-amber-400/30 hover:bg-amber-50 ${
+            isActive 
+                ? 'text-amber-600 bg-amber-50 shadow-md' 
+                : 'text-amber-400 hover:text-amber-500'
+        }`;
+
+  const getMobileNavLinkClass=({isActive})=>{
+    `block w-full h-full transition-all duration-150 ${isActive?"text-amber-600 bg-amber-50 shadow-md":"text-amber-400 hover:text-amber-500"}`
+  }
     
     return (
         <div 
@@ -14,41 +26,53 @@ function Header({ filtration, setRestaurantRowData }) {
         >       
             <div className="flex justify-between items-center md:px-6 px-2 py-1">
                 <div className="group">
-                    <Link to={"/"}>
-                    <img 
-                        className="md:w-20 w-15 cursor-pointer transition-transform duration-150 group-hover:scale-110 group-hover:rotate-3" 
-                        src={foodWeAppLogo} 
-                        alt="FoodWe App Logo" 
-                    /></Link>
+                    <NavLink to={"/"}>
+                        <img 
+                            className="md:w-20 w-15 cursor-pointer transition-transform duration-150 group-hover:scale-110 group-hover:rotate-3" 
+                            src={foodWeAppLogo} 
+                            alt="FoodWe App Logo" 
+                        />
+                    </NavLink>
                 </div>
-                
-          
                 
                 <nav className="md:block hidden">
                     <ul className="flex gap-5 list-none">
                         <li>
-                            <Link to="/" className="nav-link relative text-xl font-semibold text-amber-400 px-4 py-1 rounded-lg transition-all duration-150 hover:text-amber-500 hover:-translate-y-1 hover:scale-105 hover:shadow-lg hover:shadow-amber-400/30 hover:bg-amber-50">
+                            <NavLink 
+                                to="/" 
+                                className={getNavLinkClass}
+                                end
+                            >
                                 Home
-                                <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-amber-400 to-amber-600 transition-all duration-150 transform -translate-x-1/2 hover:w-full"></span>
-                            </Link>
+                                <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-amber-400 to-amber-600 transition-all duration-150 transform -translate-x-1/2 group-hover:w-full"></span>
+                            </NavLink>
                         </li>
                         <li>
-                            <Link to="/about" className="nav-link relative text-xl font-semibold text-amber-400 px-4 py-1 rounded-lg transition-all duration-150 hover:text-amber-500 hover:-translate-y-1 hover:scale-105 hover:shadow-lg hover:shadow-amber-400/30 hover:bg-amber-50">
+                            <NavLink 
+                                to="/about" 
+                                className={getNavLinkClass}
+                            >
                                 About
-                                <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-amber-400 to-amber-600 transition-all duration-150 transform -translate-x-1/2 hover:w-full"></span>
-                            </Link>
+                                <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-amber-400 to-amber-600 transition-all duration-150 transform -translate-x-1/2 group-hover:w-full"></span>
+                            </NavLink>
                         </li>
                         <li>
-                            <Link to="/contact" className="nav-link relative text-xl font-semibold text-amber-400 px-4 py-1 rounded-lg transition-all duration-150 hover:text-amber-500 hover:-translate-y-1 hover:scale-105 hover:shadow-lg hover:shadow-amber-400/30 hover:bg-amber-50">
+                            <NavLink 
+                                to="/contact" 
+                                className={getNavLinkClass}
+                            >
                                 Contact
-                                <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-amber-400 to-amber-600 transition-all duration-150 transform -translate-x-1/2 hover:w-full"></span>
-                            </Link>
+                                <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-amber-400 to-amber-600 transition-all duration-150 transform -translate-x-1/2 group-hover:w-full"></span>
+                            </NavLink>
                         </li>
-                         <li>
-                            <Link to="/cart" className="nav-link relative text-xl font-semibold text-amber-400 px-4 py-1 rounded-lg transition-all duration-150 hover:text-amber-500 hover:-translate-y-1 hover:scale-105 hover:shadow-lg hover:shadow-amber-400/30 hover:bg-amber-50">
+                        <li>
+                            <NavLink 
+                                to="/cart" 
+                                className={getNavLinkClass}
+                            >
                                 Cart
-                                <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-amber-400 to-amber-600 transition-all duration-150 transform -translate-x-1/2 hover:w-full"></span>
-                            </Link>
+                                <span className="absolute bottom-0 left-1/2 w-0 h-0.5 bg-gradient-to-r from-amber-400 to-amber-600 transition-all duration-150 transform -translate-x-1/2 group-hover:w-full"></span>
+                            </NavLink>
                         </li>
                     </ul>
                 </nav>
@@ -61,8 +85,6 @@ function Header({ filtration, setRestaurantRowData }) {
                 </button>
             </div>
             
-         
-            
             <div className={`
                 w-full md:hidden overflow-hidden bg-white shadow-lg
                 transition-all duration-150 ease-in-out
@@ -74,32 +96,53 @@ function Header({ filtration, setRestaurantRowData }) {
                 <nav className="w-full text-center">
                     <ul className="flex flex-col justify-center list-none">
                         <li className={`
-                            border-b py-2 font-semibold text-amber-400 hover:bg-amber-50 border-t
+                            border-b py-2 font-semibold hover:bg-amber-50 border-t
                             transition-all duration-150 delay-75
                             ${mobileMenu ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform -translate-y-4'}
                         `}>
-                            <Link to="/">Home</Link>
+                            <NavLink 
+                                to="/" 
+                                className={getMobileNavLinkClass}
+                                end
+                            >
+                                Home
+                            </NavLink>
                         </li>
                         <li className={`
-                            border-b py-2 font-semibold text-amber-400 hover:bg-amber-50
+                            border-b py-2 font-semibold hover:bg-amber-50
                             transition-all duration-150 delay-150
                             ${mobileMenu ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform -translate-y-4'}
                         `}>
-                            <Link to="/about">About</Link>
+                            <NavLink 
+                                to="/about" 
+                                className={getMobileNavLinkClass}
+                            >
+                                About
+                            </NavLink>
                         </li>
                         <li className={`
-                            border-b py-2 font-semibold text-amber-400 hover:bg-amber-50
+                            border-b py-2 font-semibold hover:bg-amber-50
                             transition-all duration-150 delay-225
                             ${mobileMenu ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform -translate-y-4'}
                         `}>
-                            <Link to="/contact">Contact</Link>
+                            <NavLink 
+                                to="/contact" 
+                                className={getMobileNavLinkClass}
+                            >
+                                Contact
+                            </NavLink>
                         </li>
-                         <li className={`
-                            border-b py-2 font-semibold text-amber-400 hover:bg-amber-50
+                        <li className={`
+                            border-b py-2 font-semibold hover:bg-amber-50
                             transition-all duration-150 delay-225
                             ${mobileMenu ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform -translate-y-4'}
                         `}>
-                            <Link to="/cart">Cart</Link>
+                            <NavLink 
+                                to="/cart" 
+                                className={getMobileNavLinkClass}
+                            >
+                                Cart
+                            </NavLink>
                         </li>
                     </ul>
                 </nav>
