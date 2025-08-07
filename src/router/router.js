@@ -6,7 +6,11 @@ import Contact from "../Pages/Contact.jsx"
 import App from "../App.jsx"
 import LayOut from "../Pages/LayOut.jsx"
 import MenuPage from "../Pages/MenuPage.jsx"
+import ErrorMessage from "../Components/ErrorMessage.jsx"
 const appRouter=createBrowserRouter([
+    {path:"*",
+        Component:ErrorMessage
+    },
     {
      path:"/",
      Component:LayOut,
