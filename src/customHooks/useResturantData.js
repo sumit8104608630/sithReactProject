@@ -1,0 +1,62 @@
+import { useEffect, useState } from "react";
+import {cardUrl} from "../Util/constant.js"
+const useResturantData=()=>{
+          let [filtration,setFiltration]=useState([])
+          let [firstRowData,setFirstRowData]=useState([])
+          let [isLoading,setIsLoading]=useState(true)
+          let [restaurantRowData,setRestaurantRowData]=useState([]);
+          let [errorMessage,setErrorMessage]=useState("");
+    
+          const fetchCardDataFromUrl=async ()=>{
+              const data = await fetch(cardUrl);
+         
+            try {
+                  if(!data.ok){
+              switch (data.status) {
+      case 400:
+        throw new Error("400 Bad Request: The server could not understand the request.");
+      case 401:
+        throw new Error("401 Unauthorized: Access is denied due to invalid credentials.");
+      case 403:
+        throw new Error("403 Forbidden: You do not have permission to access this resource.");
+      case 404:
+        throw new Error("Not found.");
+      case 405:
+        throw new Error("405 Method Not Allowed: The HTTP method is not supported.");
+      case 408:
+        throw new Error("408 Request Timeout: The server timed out waiting for the request.");
+      case 409:
+        throw new Error("409 Conflict: The request could not be completed due to a conflict.");
+      case 422:
+        throw new Error("422 Unprocessable Entity: The request was well-formed but could not be followed due to semantic errors.");
+      case 429:
+        throw new Error("429 Too Many Requests: You have sent too many requests in a given time.");
+      case 500:
+        throw new Error("500 Internal Server Error: The server encountered an unexpected condition.");
+      default:
+        throw new Error(`${data.status} Error: An unknown error occurred.`);
+              }
+    
+            }
+              const json = await data.json();
+              console.log(json,"ss")
+              setFirstRowData(json?.data?.cards[0].card.card?.gridElements?.infoWithStyle?.info)
+              setRestaurantRowData(json?.data?.cards[1].card.card?.gridElements?.infoWithStyle?.restaurants)
+              setFiltration(json?.data?.cards[1].card.card?.gridElements?.infoWithStyle?.restaurants)
+              setIsLoading(false)
+            }
+            catch (err) {
+              setErrorMessage(err.message);
+            }
+            finally{
+              setIsLoading(false)
+            }
+          }
+          useEffect(()=>{
+            fetchCardDataFromUrl()
+          },[])
+          
+          return {filtration,firstRowData,isLoading,restaurantRowData,errorMessage,setErrorMessage,setFiltration,setFirstRowData,setRestaurantRowData}
+}
+
+export default useResturantData;
