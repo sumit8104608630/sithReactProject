@@ -15,7 +15,7 @@ function NestedSubMenuItem({title,itemCards,categoryId}) {
     <button className='w-full   px-1 cursor-pointer' onClick={()=>handleSubMenuItems(categoryId)}>
      
         <div className='w-full pl-5 flex justify-between'>
-         <h1 className='text-lg font-medium text-amber-400 '>{title+" ("+itemCards?.length+")"}</h1>
+         <h1 className='text-lg text-start font-medium text-amber-400 '>{title+" ("+itemCards?.length+")"}</h1>
          <span  className='cursor-pointer px-1 '>
            {drop?<FaChevronUp className='text-amber-400' />: <FaChevronDown className='text-amber-400' />}
          </span>

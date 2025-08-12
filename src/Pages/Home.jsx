@@ -65,7 +65,7 @@ filterDataAccordingFilterButton(activeFilter)
   
 
   return (
-    <div className='pt-32'>
+    <div className='pt-32 w-full'>
       {/* Background Image */}
       <div className='hidden justify-center mx-auto px-10 md:flex overflow-hidden'>
         <img
@@ -77,26 +77,46 @@ filterDataAccordingFilterButton(activeFilter)
 
    
       {/* Restaurant Sections */}
-      <div className='flex gap-5  flex-col justify-center'>
+      <div className='flex gap-5 w-full  flex-col justify-center'>
         <FirstRestaurantRow errorMessage={errorMessage} firstRowData={firstRowData} />
            {/* Search Bar and Filters Section */}
-      <div 
-                  style={newHeader?{boxShadow: "0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"}:{}} 
-
-       className=' justify-between shadow-2xl  sticky top-0 z-100 bg-white w-full px-5 md:px-20 pt-8  flex'>
+      
+<div 
+  style={newHeader ? {boxShadow: "0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"} : {}} 
+  className="justify-between items-center shadow-2xl sticky top-0 z-50 bg-white w-full px-5 md:px-20 py-2 flex flex-col md:flex-row"
+>
         {/* Search Bar */}
-        <div className='mb-6'>
+        <div className=' w-full'>
           <SearchBar 
             filtration={filtration}
             setRestaurantRowData={setRestaurantRowData}
             isMobile={false}
           />
         </div>   
-        <div className='flex gap-10'>{filterButtons.map((item)=><button
-        onClick={()=>handleFilterClick(item.id)}
-         className={`px-5 py-2 h-max cursor-pointer border-2 outline-2 outline-amber-400 ${activeFilter===item.id?"bg-amber-400 border-white text-white":"outline-amber-400 border-none text-amber-400"}  rounded-lg 
-        font-semibold `} key={item.id}>{item.label}</button>
-        ) } </div> 
+<div className='flex justify-center w-full md:flex-nowrap flex-wrap gap-3 sm:gap-4 md:gap-6 lg:gap-8 px-4 sm:px-6 py-4'>
+  {filterButtons.map((item) => 
+    <button
+      onClick={() => handleFilterClick(item.id)}
+      className={`
+        py-2
+        text-sm sm:text-base md:text-lg
+        h-max cursor-pointer border-2 outline-2 outline-amber-400 
+        ${activeFilter === item.id 
+          ? "bg-amber-400 border-white text-white" 
+          : "outline-amber-400 border-none text-amber-400 bg-white hover:bg-amber-50"
+        }  
+        rounded-lg font-semibold 
+        transition-all duration-200 ease-in-out
+        active:scale-95 hover:shadow-md
+        min-w-[80px] sm:min-w-[100px] md:min-w-[120px]
+        whitespace-nowrap
+      `} 
+      key={item.id}
+    >
+      {item.label}
+    </button>
+  )}
+</div>
       </div>
 
         <RestaurantCardRow errorMessage={errorMessage} isLoading={isLoading} restaurantRowData={restaurantRowData} />

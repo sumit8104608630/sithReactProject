@@ -87,7 +87,7 @@ function SearchBar({ filtration, setRestaurantRowData, isMobile = false }) {
         : "flex w-full";
     
     const inputContainerClass = isMobile
-        ? "relative px-4 py-2 text-gray-700 bg-gray-50 border border-gray-200 rounded-full flex justify-between items-center focus-within:ring-2 focus-within:ring-amber-400 focus-within:border-transparent transition-all duration-200"
+        ? "relative px-4 py-4 text-gray-700 bg-gray-50 border border-gray-200 rounded-full flex justify-between items-center focus-within:ring-2 focus-within:ring-amber-400 focus-within:border-transparent transition-all duration-200"
         : "w-full px-4 py-2 justify-center items-center text-gray-700 bg-gray-50 border border-gray-200 rounded-full flex focus:outline-none focus:ring-2 focus:ring-amber-400 focus:border-transparent transition-all duration-200 hover:shadow-md";
     
     const inputClass = isMobile
@@ -111,7 +111,7 @@ function SearchBar({ filtration, setRestaurantRowData, isMobile = false }) {
 
     return (
         <div className={containerClass} ref={searchRef}>
-            <form onSubmit={handleSearch} className="relative">
+            <form onSubmit={handleSearch} className="relative md:w-max w-full">
                 <div className={inputContainerClass}>
                     <input
                         type="text"

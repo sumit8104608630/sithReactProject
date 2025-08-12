@@ -24,7 +24,7 @@ function Header({ filtration, setRestaurantRowData }) {
             style={{boxShadow: "0 10px 25px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)"}} 
             className="fixed w-full bg-white z-50"
         >       
-            <div className="flex justify-between items-center md:px-6 px-2 py-1">
+            <div className="flex justify-between w-full items-center md:px-6 px-2 py-1">
                 <div className="group ">
                     <NavLink className="flex items-center" to={"/"}>
                         <img 
@@ -136,7 +136,7 @@ function Header({ filtration, setRestaurantRowData }) {
                         <li className={`
                             border-b py-2 font-semibold hover:bg-amber-50
                             transition-all duration-150 delay-225
-                            ${mobileMenu ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform -translate-y-4'}
+                            ${mobileMenu ? 'opacity-100 transform text-amber500 translate-y-0' : 'opacity-0 transform -translate-y-4'}
                         `}>
                             <NavLink 
                                 to="/cart" 

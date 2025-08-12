@@ -3,7 +3,7 @@ import foodWeAppLogo from "../assets/Logos/foodweAppLogo.png"
 
 function Footer() {
   return (
-    <div className='bg-black  text-white'>
+    <div className='bg-black md:block hidden text-white'>
      <div className=' flex gap-20 px-20 justify-center py-20'>
    <div className="group flex items-center h-max">
                       <div>

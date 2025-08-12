@@ -16,7 +16,7 @@ function MenuItems({id,title,len ,subItems}) {
     <button className='w-full pt-1 pb-2 px-1 cursor-pointer' onClick={()=>handleSubMenuItems(id)}>
      
         <div className='w-full flex justify-between'>
-         <h1 className='text-xl font-semibold text-amber-500 '>{title+" ("+len+")"}</h1>
+         <h1 className='text-xl text-start font-semibold text-amber-500 '>{title+" ("+len+")"}</h1>
          <span  className='cursor-pointer px-1 py-1'>
            {drop?<FaChevronUp className='text-amber-500' />: <FaChevronDown className='text-amber-500' />}
          </span>

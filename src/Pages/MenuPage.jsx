@@ -10,122 +10,61 @@ import { FaCircleArrowLeft, FaCircleArrowRight } from 'react-icons/fa6';
 import MenuItems from '../Components/MenuItems';
 import ShimmerMenuEffect from '../Components/ShimmerMenuEffect';
 import NestedMenu from '../Components/NestedMenu';
+import useMenuData from '../customHooks/useMenuData';
 
 function MenuPage() {
   const scroll = useRef(null)
-  const [nestedMenuItem,setNestedMenuItem]=useState([])
-  const [isLoading,setIsLoading]=useState(true)
-  const [menuInfo, setMenuInfo] = useState({})
   const [activeButton, setActiveButton] = useState("orderOnline")
-  const [offers, setOffers] = useState([])
-  const param = useParams();
-  const [errorMessage,setErrorMessage]=useState("");
-  
-  const [menuItem,setMenuItems]=useState([]);
-const extractMenuData = async () => {
-  try {
-    let id = extractId(param.title);
-    let url = Url(id);
-    const response = await fetch(url);
-    
-    if (!response.ok) {
-      switch (response.status) {
-        case 400:
-          throw new Error("400 Bad Request: The server could not understand the request.");
-        case 401:
-          throw new Error("401 Unauthorized: Access is denied due to invalid credentials.");
-        case 403:
-          throw new Error("403 Forbidden: You do not have permission to access this resource.");
-        case 404:
-          throw new Error("Restaurant not found.");
-        case 405:
-          throw new Error("405 Method Not Allowed: The HTTP method is not supported.");
-        case 408:
-          throw new Error("408 Request Timeout: The server timed out waiting for the request.");
-        case 409:
-          throw new Error("409 Conflict: The request could not be completed due to a conflict.");
-        case 422:
-          throw new Error("422 Unprocessable Entity: The request was well-formed but could not be followed due to semantic errors.");
-        case 429:
-          throw new Error("429 Too Many Requests: You have sent too many requests in a given time.");
-        case 500:
-          throw new Error("500 Internal Server Error: The server encountered an unexpected condition.");
-        default:
-          throw new Error(`${response.status} Error: An unknown error occurred.`);
-      }
-    }
+  const {nestedMenuItem,isLoading,menuInfo,offers,menuItem}=useMenuData();
 
-    const jsonData = await response.json();
-    const Cards = jsonData.data.cards;
-    
-    setMenuInfo(Cards[2]?.card?.card?.info);
-    
-    let menuCollection = Cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.filter(
-      item => item.card.card["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
-    );
-    
-    let nestedMenuCollection = Cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.filter(
-      item => item?.card?.card?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.NestedItemCategory"
-    );
-    
-    
-    setNestedMenuItem(nestedMenuCollection);
-    setMenuItems(menuCollection);
-    setOffers(Cards[3]?.card?.card?.gridElements?.infoWithStyle?.offers);
-    setIsLoading(false)
-    
-  } catch (err) {
-    setErrorMessage(err.message);
-    setIsLoading(false)
-    console.error("Error fetching menu data:", err);
-  }
-};
-
-
+  // Scroll to top when component mounts
   useEffect(() => {
-    extractMenuData();
-  }, [])
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleScrollLeft = (direction) => {
+    const scrollAmount = window.innerWidth < 768 ? 250 : 1000;
     if (direction === "left") {
       scroll.current.scrollBy({
-        left: -1000,
+        left: -scrollAmount,
         behavior: 'smooth'
       })
     }
     if (direction === "right") {
       scroll.current.scrollBy({
-        left: +1000,
+        left: +scrollAmount,
         behavior: 'smooth'
       })
     }
   }
 console.log(nestedMenuItem)
+
   const renderCuisines = () => {
     return menuInfo?.cuisines?.map((cuisine, i) => (
-      <span key={i} className="bg-amber-500 text-white px-3 py-0.5 rounded-full text-sm font-medium">
+      <span key={i} className="bg-amber-500 text-white px-2 py-0.5 sm:px-3 sm:py-1 rounded-full text-xs sm:text-sm font-medium whitespace-nowrap">
         {cuisine}
       </span>
     ))
   }
+  
   if(isLoading){
     return <ShimmerMenuEffect/>
   }
 
   const renderRatingSection = () => {
     return (
-      <div className='flex justify-between'>
-        <div className='flex mb-4 gap-5'>
-          <span className='rounded-lg text-sm text-white font-semibold px-2 py-1 bg-green-600 flex justify-center items-center gap-2'>
+      <div className='flex flex-col sm:flex-row sm:justify-between gap-3 sm:gap-0'>
+        <div className='flex flex-col sm:flex-row sm:mb-4 gap-2 sm:gap-5'>
+          <span className='rounded-lg text-sm text-white font-semibold px-2 py-1 bg-green-600 flex justify-center items-center gap-2 w-fit'>
             <FaStar />
             {menuInfo?.avgRating}
           </span>
-          <span className='text-gray-500'>
+          <span className='text-gray-500 text-sm sm:text-base'>
             {"(" + menuInfo?.totalRatingsString + ")"}
           </span>
         </div>
-        <div className='px-2'>
-          <span className='flex items-center font-bold text-xl text-amber-600'>
+        <div className='px-0 sm:px-2'>
+          <span className='flex items-center font-bold text-lg sm:text-xl text-amber-600'>
             {menuInfo?.costForTwoMessage}
           </span>
         </div>
@@ -139,13 +78,13 @@ console.log(nestedMenuItem)
       : `${menuInfo?.sla?.minDeliveryTime}-${menuInfo?.sla?.maxDeliveryTime} min`
 
     return (
-      <div className='flex mb-2 gap-2'>
-        <span className='flex gap-0.5 items-center'>
-          <IoLocationOutline />
-          {menuInfo?.locality}
+      <div className='flex flex-col sm:flex-row mb-4 gap-2 sm:gap-4'>
+        <span className='flex gap-1 items-center text-sm sm:text-base text-gray-600'>
+          <IoLocationOutline className="text-amber-500 flex-shrink-0" />
+          <span className="truncate">{menuInfo?.locality}</span>
         </span>
-        <span className='flex gap-0.5 items-center'>
-          <IoTimeOutline />
+        <span className='flex gap-1 items-center text-sm sm:text-base text-gray-600'>
+          <IoTimeOutline className="text-amber-500 flex-shrink-0" />
           {deliveryTime}
         </span>
       </div>
@@ -154,29 +93,29 @@ console.log(nestedMenuItem)
 
   const renderActionButtons = () => {
     const getButtonClass = (buttonType) => {
-      const baseClass = "flex-1 flex items-center justify-center border-2 border-amber-500 cursor-pointer gap-2 py-3 px-4 rounded-xl font-medium transition-all duration-200"
+      const baseClass = "flex-1 flex items-center justify-center border-2 border-amber-500 cursor-pointer gap-1 sm:gap-2 py-2 sm:py-3 px-2 sm:px-4 rounded-xl font-medium transition-all duration-200 min-h-[44px]"
       const activeClass = "bg-amber-500 border-amber-500 text-white shadow-lg transform scale-105"
-      const inactiveClass = "bg-white text-amber-500"
+      const inactiveClass = "bg-white text-amber-500 hover:bg-amber-50"
       
       return `${baseClass} ${activeButton === buttonType ? activeClass : inactiveClass}`
     }
 
     return (
-      <div className='flex gap-2'>
+      <div className='flex gap-2 sm:gap-4'>
         <button 
           onClick={() => setActiveButton("orderOnline")}
           className={getButtonClass("orderOnline")}
         >
-          <ShoppingBag className="w-4 h-4" />
-          Order Online
+          <ShoppingBag className="w-4 h-4 flex-shrink-0" />
+          <span className="text-sm sm:text-base">Order Online</span>
         </button>
         
         <button 
           onClick={() => setActiveButton("dineOut")}
           className={getButtonClass("dineOut")}
         >
-          <Utensils className="w-4 h-4" />
-          Dine Out
+          <Utensils className="w-4 h-4 flex-shrink-0" />
+          <span className="text-sm sm:text-base">Dine Out</span>
         </button>
       </div>
     )
@@ -184,17 +123,17 @@ console.log(nestedMenuItem)
 
   const renderScrollButtons = () => {
     return (
-      <div className='absolute hidden md:block right-0 pr-5 top-0'>
-        <div className='flex gap-2'>
+      <div className='absolute md:block hidden right-2 sm:right-4 md:right-0 md:pr-5 top-0 z-10'>
+        <div className='flex gap-1 sm:gap-2 bg-white/90 backdrop-blur-sm rounded-full p-1'>
         <button 
           onClick={() => handleScrollLeft("left")} 
-          className='text-2xl text-gray-600 hover:text-gray-500 cursor-pointer'
+          className='text-xl sm:text-2xl text-gray-600 hover:text-amber-500 cursor-pointer transition-colors duration-200 p-1'
         >
           <FaCircleArrowLeft />
         </button>
         <button 
           onClick={() => handleScrollLeft("right")} 
-          className='text-2xl text-gray-600 hover:text-gray-500 cursor-pointer'
+          className='text-xl sm:text-2xl text-gray-600 hover:text-amber-500 cursor-pointer transition-colors duration-200 p-1'
         >
           <FaCircleArrowRight />
         </button>
@@ -216,14 +155,14 @@ console.log(nestedMenuItem)
   }
 
   return (
-    <div className='pt-30 w-full flex-col items-center flex justify-center'>
+    <div className='pt-20 sm:pt-24 md:pt-32 w-full flex-col items-center flex justify-start min-h-screen px-4 sm:px-6 lg:px-8'>
       {/* Restaurant Info Card */}
-      <div className='w-1/2 bg-amber-50 border-1 border-amber-500 my-5 p-5 mx-6 rounded-2xl shadow-lg overflow-hidden'>
-        <h1 className="text-2xl font-bold text-gray-800">
+      <div className='w-full max-w-2xl bg-amber-50 border border-amber-500 my-3 sm:my-5 p-4 sm:p-6 rounded-2xl shadow-lg overflow-hidden'>
+        <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-800 mb-3 sm:mb-4">
           {menuInfo?.name}
         </h1>
         
-        <div className='flex my-5 gap-2'>
+        <div className='flex flex-wrap my-3 sm:my-5 gap-2'>
           {renderCuisines()}
         </div>
         
@@ -233,7 +172,7 @@ console.log(nestedMenuItem)
       </div>
 
       {/* Offers Section */}
-      <div className='w-1/2'>
+      <div className='w-full max-w-2xl'>
         <div className='relative flex justify-center'>
           {renderScrollButtons()}
           
@@ -243,16 +182,32 @@ console.log(nestedMenuItem)
               msOverflowStyle: 'none',
             }}
             ref={scroll}
-            className='flex gap-8 overflow-x-auto px-2 mb-10 mt-10'
+            className='flex gap-3 sm:gap-6 md:gap-8 overflow-x-auto px-2 mb-6 sm:mb-8 md:mb-10 mt-6 sm:mt-8 md:mt-10 pb-2'
           >
             {renderOffers()}
           </div>
         </div>
       </div>
-      {/* now the menu section */}
-      <div className='w-1/2 mb-10'>
-        {menuItem.map((item)=><div key={item?.card?.card?.categoryId}><MenuItems  id={item?.card?.card?.categoryId} subItems={item?.card?.card?.itemCards} title={item?.card?.card?.title} len={item?.card?.card?.itemCards.length} /></div>)}
-        {nestedMenuItem.map((item)=><div key={item?.card?.card?.categoryId}><NestedMenu {...item?.card?.card} /></div>)}
+
+      {/* Menu Section */}
+      <div className='w-full max-w-2xl mb-6 sm:mb-8 md:mb-10'>
+        <div className="space-y-4 sm:space-y-6">
+          {menuItem.map((item) => (
+            <div key={item?.card?.card?.categoryId}>
+              <MenuItems  
+                id={item?.card?.card?.categoryId} 
+                subItems={item?.card?.card?.itemCards} 
+                title={item?.card?.card?.title} 
+                len={item?.card?.card?.itemCards.length} 
+              />
+            </div>
+          ))}
+          {nestedMenuItem.map((item) => (
+            <div key={item?.card?.card?.categoryId}>
+              <NestedMenu {...item?.card?.card} />
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   )
