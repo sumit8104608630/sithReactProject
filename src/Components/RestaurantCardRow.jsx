@@ -96,7 +96,7 @@ function RestaurantCardRow({ restaurantRowData, errorMessage, isLoading }) {
                 key={item?.info?.id} 
                 className="w-full h-full flex"
               >
-                <div className="w-full">
+                <div className="w-full flex justify-center">
                   <RestaurantCard {...item?.info} />
                 </div>
               </div>
