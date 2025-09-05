@@ -13,14 +13,32 @@ import NestedMenu from '../Components/NestedMenu';
 import useMenuData from '../customHooks/useMenuData';
 
 function MenuPage() {
+  const [nestedId,setNestedId]=useState()
   const scroll = useRef(null)
   const [activeButton, setActiveButton] = useState("orderOnline")
   const {nestedMenuItem,isLoading,menuInfo,offers,menuItem}=useMenuData();
+    const [dropMenu,setDropMenuId]=useState()
 
   // Scroll to top when component mounts
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+      const handleSubMenuItems=(id)=>{
+        if(dropMenu===id ){
+        setDropMenuId(null)
+        }
+        else{
+          setDropMenuId(id)
+        }
+                setNestedId(null)
+
+    }
+    useEffect(()=>{
+      if(nestedId!=null){
+        setDropMenuId(null)
+      }
+    },[nestedId])
 
   const handleScrollLeft = (direction) => {
     const scrollAmount = window.innerWidth < 768 ? 250 : 1000;
@@ -37,7 +55,6 @@ function MenuPage() {
       })
     }
   }
-console.log(nestedMenuItem)
 
   const renderCuisines = () => {
     return menuInfo?.cuisines?.map((cuisine, i) => (
@@ -195,6 +212,8 @@ console.log(nestedMenuItem)
           {menuItem.map((item) => (
             <div key={item?.card?.card?.categoryId}>
               <MenuItems  
+                handleSubMenuItems={()=>handleSubMenuItems(item?.card?.card?.categoryId)}
+                showDrop={dropMenu===item?.card?.card?.categoryId}
                 id={item?.card?.card?.categoryId} 
                 subItems={item?.card?.card?.itemCards} 
                 title={item?.card?.card?.title} 
@@ -204,7 +223,7 @@ console.log(nestedMenuItem)
           ))}
           {nestedMenuItem.map((item) => (
             <div key={item?.card?.card?.categoryId}>
-              <NestedMenu {...item?.card?.card} />
+              <NestedMenu setNestedShow={()=>setNestedId(item?.card?.card?.categoryId)} showNested={nestedId===item?.card?.card?.categoryId} {...item?.card?.card} />
             </div>
           ))}
         </div>

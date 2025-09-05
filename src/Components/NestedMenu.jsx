@@ -1,14 +1,22 @@
-import React from 'react'
+import React, { useState } from 'react'
 import NestedSubMenuItem from './NestedSubMenuItem'
 
-function NestedMenu({title,categories}) {
-    console.log(title)
+function NestedMenu({title,categories,showNested,setNestedShow}) {
+        const [dropMenu,setDropMenuId]=useState()
+    const handleSubMenuItems=(id)=>{
+      if(id===dropMenu){
+        setDropMenuId(null)
+      }else{
+        setDropMenuId(id)
+      }
+    }
+  
   return (
     <div className='w-full border-amber-500 py-2 px-1 border-t-1'>
         <div className='w-full flex flex-col '>
             <h1 className='text-xl text-start font-semibold text-amber-500 '>{title}</h1>
             <li className='flex mt-3 gap-1 flex-col'>
-            {categories?.map((item)=><div key={item?.categoryId}><NestedSubMenuItem {...item} /></div>)}
+            {categories?.map((item)=><div key={item?.categoryId}><NestedSubMenuItem setNestedShow={setNestedShow} showNested={showNested} showMenu={dropMenu===item?.categoryId}  handleSubMenuItems={()=>handleSubMenuItems(item?.categoryId)} {...item} /></div>)}
             </li>
         </div>   
  </div>

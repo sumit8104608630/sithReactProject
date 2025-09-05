@@ -4,7 +4,7 @@ const ShimmerMenuEffect = () => {
   return (
     <div className="w-full max-w-2xl mt-32 pt-20 sm:pt-24 md:pt-32 mx-auto p-4 sm:p-6 lg:p-8 min-h-screen">
       {/* CSS for shimmer effect */}
-      <style jsx>{`
+      <style >{`
         .shimmer {
           background: linear-gradient(90deg, #f3f4f6 25%, #e5e7eb 50%, #f3f4f6 75%);
           background-size: 200px 100%;
